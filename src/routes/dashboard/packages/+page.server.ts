@@ -1,5 +1,4 @@
 import type { PageServerLoad } from './$types';
-import { getAllPackages } from '$lib/server/products/api';
 import { error } from '@sveltejs/kit';
 
 export function serializeNonPOJOs<T>(obj: T): T {
@@ -8,8 +7,8 @@ export function serializeNonPOJOs<T>(obj: T): T {
 
 export const load: PageServerLoad = async ({ params }) => {
 	try {
-		const packages = await getAllPackages();
-		return serializeNonPOJOs({ packages });
+		const res = await fetch('http://localhost:3000/packages');
+		return await res.json();
 	} catch {
 		throw error(401, 'Cannot find products');
 	}

@@ -33,7 +33,7 @@
                     <span class="mt-2">Home</span>
                 </a>
 
-                <a href="/dashboard/products"
+                <a href="/dashboard/packages"
                    class="text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
                     <!-- Heroicon name: outline/squares-2x2 -->
                     <svg class="text-indigo-300 group-hover:text-white h-6 w-6" xmlns="http://www.w3.org/2000/svg"
@@ -170,7 +170,7 @@
                                 <span>Home</span>
                             </a>
 
-                            <a href="/dashboard/products"
+                            <a href="/dashboard/packages"
                                class="text-indigo-100 hover:bg-indigo-800 hover:text-white group py-2 px-3 rounded-md flex items-center text-sm font-medium">
                                 <!-- Heroicon name: outline/squares-2x2 -->
                                 <svg class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6"
