@@ -81,7 +81,9 @@ export type Item = {
 	description: string | null;
 	isUsed: boolean | null;
 	itemTypeId: string | null;
+	itemType: ItemType | null;
 	strainId: string | null;
+	strain: Strain | null;
 };
 
 /**

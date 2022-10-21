@@ -1,15 +1,17 @@
 import type { PageServerLoad } from './$types';
+// import type { PackageWithNestedData } from '$lib/types/custom';
+
 import { error } from '@sveltejs/kit';
 
-export function serializeNonPOJOs<T>(obj: T): T {
-	return JSON.parse(JSON.stringify(obj));
-}
-
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ fetch }) => {
 	try {
 		const res = await fetch('http://localhost:3000/packages');
-		return await res.json();
-	} catch {
-		throw error(401, 'Cannot find products');
+		const packages = await res.json();
+
+		return {
+			packages
+		};
+	} catch (err) {
+		return error(500, 'Error loading packages');
 	}
 };
