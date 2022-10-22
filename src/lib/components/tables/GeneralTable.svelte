@@ -5,20 +5,43 @@
     createSvelteTable,
     flexRender,
     getCoreRowModel,
+    getSortedRowModel,
   } from '@tanstack/svelte-table'
 
   export let data
   export let columns
 
+  let sorting = []
+
+  const setSorting = updater => {
+    if (updater instanceof Function) {
+      sorting = updater(sorting)
+    } else {
+      sorting = updater
+    }
+    options.update(old => ({
+      ...old,
+      state: {
+        ...old.state,
+        sorting,
+      },
+    }))
+  }
+
   const options = writable<TableOptions<any>>({
     data: data,
     columns: columns,
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
     initialState: {
       columnVisibility: {
         id: false,
       }
     },
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
     debugAll: false,
   })
 
@@ -40,12 +63,17 @@
         {#each headerGroup.headers as header}
           <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
             {#if !header.isPlaceholder}
-              <svelte:component
-                this={flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
-              />
+              <div
+                class:cursor-pointer={header.column.getCanSort()}
+                class:select-none={header.column.getCanSort()}
+                on:click={header.column.getToggleSortingHandler()}
+              >
+                <svelte:component this={flexRender(header.column.columnDef.header, header.getContext())} />
+                {{
+                  asc: ' 🔼',
+                  desc: ' 🔽',
+                }[header.column.getIsSorted().toString()] ?? ''}
+              </div>
             {/if}
           </th>
         {/each}

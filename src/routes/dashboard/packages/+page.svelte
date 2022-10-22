@@ -14,44 +14,51 @@
           accessorKey: "id",
           header: "ID",
           cell: info => info.getValue(),
-          footer: props => props.column.id
+          footer: props => props.column.id,
+          enableSorting: false,
         },
         {
           id: "tag",
           accessorFn: (row: any) => (row.tag ? row.tag.tagNumber : "No Tag"),
           cell: info => info.getValue(),
           header: () => "Tag",
-          footer: props => props.column.id
+          footer: props => props.column.id,
+          enableSorting: true,
         },
         {
           id: "productForm",
           accessorFn: (row: any) => `${row.item.itemType?.productForm}`,
           cell: info => info.getValue(),
-          header: () => "Form"
+          header: () => "Form",
+          enableSorting: true,
         },
         {
           id: "productModifier",
           accessorFn: (row: any) => `${row.item.itemType?.productModifier}`,
           cell: info => info.getValue(),
-          header: () => "Mod"
+          header: () => "Mod",
+          enableSorting: true,
         },
         {
           id: "batchCode",
           accessorFn: (row: any) => `${row.labTests[0]?.labTest.batchCode}`,
           cell: info => info.getValue(),
-          header: () => "Batch"
+          header: () => "Batch",
+          enableSorting: true,
         },
         {
           id: "strain",
           accessorFn: (row: any) => `${row.item.strain?.name}`,
           cell: info => info.getValue(),
-          header: () => "Strain"
+          header: () => "Strain",
+          enableSorting: true,
         },
         {
           id: "type",
           accessorFn: (row: any) => `${row.item.strain?.type}`,
           cell: info => info.getValue(),
-          header: () => "Type"
+          header: () => "Type",
+          enableSorting: true,
         }
       ]
     },
@@ -64,14 +71,16 @@
           accessorKey: "quantity",
           header: () => "Quantity",
           cell: info => info.getValue(),
-          footer: props => props.column.id
+          footer: props => props.column.id,
+          enableSorting: true,
         },
         {
           id: "uom",
           accessorFn: (row: any) => row.uom?.name,
           header: () => "UoM",
           cell: info => info.getValue(),
-          footer: props => props.column.id
+          footer: props => props.column.id,
+          enableSorting: true,
         }
       ]
     },
