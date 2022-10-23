@@ -1,8 +1,8 @@
 <script lang="ts">
+  import type { PageData } from './$types';
   import type { Order } from "$lib/types/prisma-model-types";
 
-  /** @type {import("./$types").PageData} */
-  export let data;
+  export let data: PageData;
 </script>
 
 <h1 class="font-bold text-2xl text-gray-900">Orders</h1>

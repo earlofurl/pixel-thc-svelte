@@ -1,8 +1,11 @@
 <script lang="ts">
   import type { ColumnDef } from "@tanstack/svelte-table";
   import type { PackageWithNestedData } from "$lib/types/custom";
+  import type { PageData } from "./$types";
 
+  import { page } from '$app/stores';
   import GeneralTable from "$lib/components/tables/GeneralTable.svelte";
+  import PackageTableRowActions from "$lib/components/tables/actions/PackageTableRowActions.svelte";
 
   const tableColumns: ColumnDef<PackageWithNestedData>[] = [
     {
@@ -10,12 +13,19 @@
       footer: props => props.column.id,
       columns: [
         {
+          id: "actions",
+          header: "Actions",
+          cell: ({ props }) => {
+            return (PackageTableRowActions);
+          }
+        },
+        {
           id: "id",
           accessorKey: "id",
           header: "ID",
           cell: info => info.getValue(),
           footer: props => props.column.id,
-          enableSorting: false,
+          enableSorting: false
         },
         {
           id: "tag",
@@ -23,42 +33,42 @@
           cell: info => info.getValue(),
           header: () => "Tag",
           footer: props => props.column.id,
-          enableSorting: true,
+          enableSorting: true
         },
         {
           id: "productForm",
           accessorFn: (row: any) => `${row.item.itemType?.productForm}`,
           cell: info => info.getValue(),
           header: () => "Form",
-          enableSorting: true,
+          enableSorting: true
         },
         {
           id: "productModifier",
           accessorFn: (row: any) => `${row.item.itemType?.productModifier}`,
           cell: info => info.getValue(),
           header: () => "Mod",
-          enableSorting: true,
+          enableSorting: true
         },
         {
           id: "batchCode",
           accessorFn: (row: any) => `${row.labTests[0]?.labTest.batchCode}`,
           cell: info => info.getValue(),
           header: () => "Batch",
-          enableSorting: true,
+          enableSorting: true
         },
         {
           id: "strain",
           accessorFn: (row: any) => `${row.item.strain?.name}`,
           cell: info => info.getValue(),
           header: () => "Strain",
-          enableSorting: true,
+          enableSorting: true
         },
         {
           id: "type",
           accessorFn: (row: any) => `${row.item.strain?.type}`,
           cell: info => info.getValue(),
           header: () => "Type",
-          enableSorting: true,
+          enableSorting: true
         }
       ]
     },
@@ -72,7 +82,7 @@
           header: () => "Quantity",
           cell: info => info.getValue(),
           footer: props => props.column.id,
-          enableSorting: true,
+          enableSorting: true
         },
         {
           id: "uom",
@@ -80,7 +90,7 @@
           header: () => "UoM",
           cell: info => info.getValue(),
           footer: props => props.column.id,
-          enableSorting: true,
+          enableSorting: true
         }
       ]
     },
@@ -120,10 +130,22 @@
     }
   ];
 
-  /** @type {import("./$types").PageData} */
-  export let data;
+  export let data: PageData;
 </script>
 
-<h1 class="font-bold text-2xl text-gray-900">Inventory</h1>
+<div class="px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+  <div class="sm:flex sm:items-center">
+    <div class="sm:flex-auto">
+      <h1 class="text-xl font-semibold text-gray-900">Packages</h1>
+    </div>
+    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+      <a href="packages/create/"
+         class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
+        Create Package
+      </a>
+    </div>
+  </div>
+  <GeneralTable data={data.packages} columns={tableColumns} />
+</div>
 
-<GeneralTable data={data.packages} columns={tableColumns} />
+
