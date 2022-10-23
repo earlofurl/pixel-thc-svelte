@@ -1,7 +1,8 @@
 <script lang='ts'>
 	import type { PageData } from './$types';
-	import PackageSelect from '../../../../lib/components/forms/ParentPackageSelect.svelte';
+	import PackageSelect from '$lib/components/forms/ParentPackageSelect.svelte';
 	import ItemSelect from '$lib/components/forms/ItemSelect.svelte';
+	import { selectedParentPackage } from '$lib/stores';
 
 	export let data: PageData;
 
@@ -31,6 +32,28 @@
 									<PackageSelect options={data.packages} />
 									<!--									End Select Parent Package-->
 								</div>
+
+								<div class='sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5'>
+									<label class='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'>Parent
+										quantity</label>
+									<div class='mt-1 sm:col-span-2 sm:mt-0'>
+										{#if $selectedParentPackage.uom}
+										<span>
+											{$selectedParentPackage.quantity}
+										</span>
+											<span>
+											{$selectedParentPackage.uom.abbreviation}
+										</span>
+										{:else}
+											<span>--</span>
+											<span>__</span>
+										{/if}
+									</div>
+								</div>
+								<div class='sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5'>
+
+								</div>
+
 							</div>
 
 							<div class='space-y-6 pt-8 sm:space-y-5 sm:pt-10'>
@@ -44,22 +67,15 @@
 									<ItemSelect options={data.items} />
 
 									<div class='sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5'>
-										<label for='last-name' class='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'>Last
-											name</label>
+										<label for='new-quantity' class='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'>New
+											package quantity</label>
 										<div class='mt-1 sm:col-span-2 sm:mt-0'>
-											<input type='text' name='last-name' id='last-name' autocomplete='family-name'
-														 class='block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm'>
-										</div>
-									</div>
-
-									<div class='sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5'>
-										<label for='email' class='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'>Email
-											address</label>
-										<div class='mt-1 sm:col-span-2 sm:mt-0'>
-											<input id='email' name='email' type='email' autocomplete='email'
+											<input id='new-quantity' name='new-quantity' type='number'
 														 class='block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'>
 										</div>
 									</div>
+
+
 
 									<div class='sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5'>
 										<label for='country'
