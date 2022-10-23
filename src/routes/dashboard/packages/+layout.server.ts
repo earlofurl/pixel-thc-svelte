@@ -11,9 +11,13 @@ export const load: LayoutServerLoad = async ({ fetch }) => {
 		const itemResponse = await fetch('http://localhost:3000/items');
 		const items = await itemResponse.json();
 
+		const uomResponse = await fetch('http://localhost:3000/uom');
+		const uom = await uomResponse.json();
+
 		return {
 			packages,
-			items
+			items,
+			uom
 		};
 	} catch (err) {
 		return error(500, 'Error loading packages');
