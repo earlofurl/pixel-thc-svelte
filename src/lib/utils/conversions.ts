@@ -1,4 +1,5 @@
 import type { Uom } from '$lib/types/prisma-model-types';
+import type { PackageWithNestedData, ItemWithNesting } from '$lib/types/custom';
 
 // General Weight Unit Conversions
 // convert grams to pounds
@@ -67,17 +68,40 @@ export const singleToTwoPack = (single: number) => {
 	return single / 2;
 };
 
+// convert single to ten-pack
+export const singleToTenPack = (single: number) => {
+	return single / 10;
+};
+
 // convert two-pack to single
 export const twoPackToSingle = (twoPack: number) => {
 	return twoPack * 2;
 };
 
+// convert two-pack to ten-pack
+export const twoPackToTenPack = (twoPack: number) => {
+	return twoPack / 5;
+};
+
+// convert ten-pack to single
+export const tenPackToSingle = (tenPack: number) => {
+	return tenPack * 10;
+};
+
+// convert ten-pack to double
+export const tenPackToTwoPack = (tenPack: number) => {
+	return tenPack * 5;
+};
+
 export const packageUnitConverter = (
-	parentUom: Uom,
-	childUom: Uom,
-	parentQuantity: number,
+	parentPackage: PackageWithNestedData,
+	selectedItem: ItemWithNesting,
+	selectedUom: Uom,
 	childQuantity: number
 ) => {
+	const parentUom = parentPackage.uom;
+	const parentQuantity = parentPackage.quantity;
+	const childUom = selectedUom;
 	let convertedQuantity = 0;
 
 	switch (parentUom.name.toLowerCase()) {
@@ -95,7 +119,22 @@ export const packageUnitConverter = (
 				case 'kilograms':
 					convertedQuantity = kilogramsToGrams(childQuantity);
 					break;
-				default:
+				case 'each':
+					switch (selectedItem.itemType.productForm.toLowerCase()) {
+						case 'preroll':
+							switch (selectedItem.itemType.productModifier.toLowerCase()) {
+								case 'single':
+									convertedQuantity = childQuantity * 0.5;
+									break;
+								case 'twopack':
+									convertedQuantity = childQuantity;
+									break;
+								case '10-pack':
+									convertedQuantity = childQuantity * 5;
+									break;
+							}
+							break;
+					}
 					break;
 			}
 			break;
@@ -113,7 +152,22 @@ export const packageUnitConverter = (
 				case 'kilograms':
 					convertedQuantity = kilogramsToOunces(childQuantity);
 					break;
-				default:
+				case 'each':
+					switch (selectedItem.itemType.productForm.toLowerCase()) {
+						case 'preroll':
+							switch (selectedItem.itemType.productModifier.toLowerCase()) {
+								case 'single':
+									convertedQuantity = gramsToOunces(childQuantity * 0.5);
+									break;
+								case 'twopack':
+									convertedQuantity = gramsToOunces(childQuantity);
+									break;
+								case '10-pack':
+									convertedQuantity = gramsToOunces(childQuantity * 5);
+									break;
+							}
+							break;
+					}
 					break;
 			}
 			break;
@@ -131,7 +185,22 @@ export const packageUnitConverter = (
 				case 'kilograms':
 					convertedQuantity = kilogramsToPounds(childQuantity);
 					break;
-				default:
+				case 'each':
+					switch (selectedItem.itemType.productForm.toLowerCase()) {
+						case 'preroll':
+							switch (selectedItem.itemType.productModifier.toLowerCase()) {
+								case 'single':
+									convertedQuantity = gramsToPounds(childQuantity * 0.5);
+									break;
+								case 'twopack':
+									convertedQuantity = gramsToPounds(childQuantity);
+									break;
+								case '10-pack':
+									convertedQuantity = gramsToPounds(childQuantity * 5);
+									break;
+							}
+							break;
+					}
 					break;
 			}
 			break;
@@ -149,23 +218,82 @@ export const packageUnitConverter = (
 				case 'pounds':
 					convertedQuantity = poundsToKilograms(childQuantity);
 					break;
-				default:
+				case 'each':
+					switch (selectedItem.itemType.productForm.toLowerCase()) {
+						case 'preroll':
+							switch (selectedItem.itemType.productModifier.toLowerCase()) {
+								case 'single':
+									convertedQuantity = gramsToKilograms(childQuantity * 0.5);
+									break;
+								case 'twopack':
+									convertedQuantity = gramsToKilograms(childQuantity);
+									break;
+								case '10-pack':
+									convertedQuantity = gramsToKilograms(childQuantity * 5);
+									break;
+							}
+							break;
+					}
 					break;
 			}
 			break;
+		// this case for each can get complicated based on item type interactions
 		case 'each':
 			switch (childUom.name.toLowerCase()) {
 				case 'each':
-					convertedQuantity = childQuantity;
-					break;
-				default:
+					switch (parentPackage.item.itemType.productForm.toLowerCase()) {
+						case 'preroll':
+							switch (selectedItem.itemType.productForm.toLowerCase()) {
+								case 'preroll':
+									// parent and child are both prerolls
+									switch (parentPackage.item.itemType.productModifier.toLowerCase()) {
+										case 'single':
+											switch (selectedItem.itemType.productModifier.toLowerCase()) {
+												case 'single':
+													convertedQuantity = childQuantity;
+													break;
+												case 'twopack':
+													convertedQuantity = twoPackToSingle(childQuantity);
+													break;
+												case '10-pack':
+													convertedQuantity = tenPackToSingle(childQuantity);
+													break;
+											}
+											break;
+										case 'twopack':
+											switch (selectedItem.itemType.productModifier.toLowerCase()) {
+												case 'twopack':
+													convertedQuantity = childQuantity;
+													break;
+												case 'single':
+													convertedQuantity = singleToTwoPack(childQuantity);
+													break;
+												case '10-pack':
+													convertedQuantity = tenPackToTwoPack(childQuantity);
+													break;
+											}
+											break;
+										case '10-pack':
+											switch (selectedItem.itemType.productModifier.toLowerCase()) {
+												case '10-pack':
+													convertedQuantity = childQuantity;
+													break;
+												case 'single':
+													convertedQuantity = singleToTenPack(childQuantity);
+													break;
+												case 'twopack':
+													convertedQuantity = twoPackToTenPack(childQuantity);
+													break;
+											}
+											break;
+									}
+									break;
+							}
+							break;
+					}
 					break;
 			}
 			break;
-		default:
-			convertedQuantity = parentQuantity;
-			break;
 	}
-
 	return convertedQuantity;
 };

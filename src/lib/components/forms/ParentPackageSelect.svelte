@@ -30,6 +30,10 @@
 										class='font-semibold'>{($selectedParentPackage.tag.tagNumber).slice(18, 24)}</span>
 									</p>
 									<div class='w-full justify-between'>
+										<span>{$selectedParentPackage.item.itemType.productForm}</span> -
+										<span>{$selectedParentPackage.item.itemType.productModifier}</span>
+									</div>
+									<div class='w-full justify-between'>
 										<span class='font-semibold'>{$selectedParentPackage.item.strain.name}</span>
 										{#if $selectedParentPackage.labTests.length > 0}
 											<span>{$selectedParentPackage.labTests[0].labTest.batchCode}</span>
@@ -58,6 +62,10 @@
 						<p class={classNames(selected ? 'font-bold' : 'font-normal')}>
 							{productPackage.tag.tagNumber}
 						</p>
+						<div class='w-full justify-between'>
+							<span>{productPackage.item.itemType.productForm}</span> -
+							<span>{productPackage.item.itemType.productModifier}</span>
+						</div>
 						<div class='w-full justify-between'>
 							<span class='font-semibold'>{productPackage.item.strain.name}</span>
 							{#if productPackage.labTests.length > 0}
