@@ -19,27 +19,14 @@ export const actions: Actions = {
 	default: async ({ request, fetch }) => {
 		const data = await request.formData();
 		const tagId = data.get('tagId') as string;
-		const sourcePackageId = JSON.parse(data.get('parent-package-object') as string).id;
-		const inheritedLabTestIds = JSON.parse(data.get('parent-package-object') as string).labTests[0]
-			.labTestId;
-		const itemId = JSON.parse(data.get('item-object') as string).id;
-		const quantity = data.get('new-package-quantity') as string;
-		const uomId = JSON.parse(data.get('uom-object') as string).id;
-		const newParentQuantity = data.get('new-parent-quantity') as string;
-		const notes = data.get('notes') as string;
+		const packageId = data.get('packageId') as string;
 
 		const bodyObject = new URLSearchParams({
 			tagId,
-			sourcePackageId,
-			inheritedLabTestIds,
-			itemId,
-			quantity,
-			uomId,
-			newParentQuantity,
-			notes
+			packageId
 		}).toString();
 
-		const newPackage = await fetch('http://localhost:3000/packages', {
+		const taggedPackage = await fetch('http://localhost:3000/packages/assign-tag', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'

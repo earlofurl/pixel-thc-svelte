@@ -15,7 +15,7 @@
 	export let options: Item[] = [];
 	$: filteredOptions = $selectedParentPackage.item
 		? options.filter((item: Item) => {
-				return item.strain.id === $selectedParentPackage.item.strain.id;
+				return item?.strain?.id === $selectedParentPackage.item.strain.id;
 		  })
 		: options.slice(0, 10);
 </script>
@@ -32,13 +32,9 @@
 	>
 		{#if $selectedItem.strain}
 			<div>
-				<p class="font-semibold">
-					{$selectedItem.strain.name}
-				</p>
-				<div class="w-full justify-between">
-					<span>{$selectedItem.itemType.productForm}</span> -
-					<span>{$selectedItem.itemType.productModifier}</span>
-				</div>
+				<span class="font-semibold">{$selectedItem.strain.name}</span> -
+				<span>{$selectedItem.itemType.productForm}</span> -
+				<span>{$selectedItem.itemType.productModifier}</span>
 			</div>
 		{:else}
 			<div>
@@ -62,14 +58,13 @@
 						? 'group flex items-center w-full px-4 py-2 text-sm bg-gray-100 text-gray-800'
 						: 'group flex items-center w-full px-4 py-2 text-sm text-gray-700'}
 			>
-				<div>
-					<p class={classNames(selected ? 'font-bold' : 'font-normal')}>
-						{item.strain.name}
-					</p>
-					<div class="w-full justify-between">
-						<span>{item.itemType.productForm}</span>
-						<span>{item.itemType.productModifier}</span>
-					</div>
+				<div class={classNames(selected ? 'font-bold' : 'font-normal')}>
+					<span>
+						{item?.strain?.name}
+					</span>
+					-
+					<span>{item?.itemType?.productForm}</span> -
+					<span>{item?.itemType?.productModifier}</span>
 				</div>
 			</ListboxOption>
 		{/each}

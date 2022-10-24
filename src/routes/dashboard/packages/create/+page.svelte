@@ -53,7 +53,7 @@
 									</p>
 								</div>
 
-								<div class="flex grid grid-cols-3 space-y-6 sm:space-y-5">
+								<div class="grid grid-cols-3 space-y-6 sm:space-y-5">
 									<!--									Select Parent Package-->
 									<ParentPackageSelect options={data.packages} />
 									<input

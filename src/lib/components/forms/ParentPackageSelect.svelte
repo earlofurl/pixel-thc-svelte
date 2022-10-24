@@ -55,7 +55,7 @@
 		</span>
 	</ListboxButton>
 	<ListboxOptions
-		class="absolute z-10 mt-2 w-56 min-w-20 divide-y divide-gray-100 overflow-scroll rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+		class="absolute z-10 mt-2 min-w-60 max-w-96 divide-y divide-gray-100 overflow-scroll rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
 	>
 		{#each options as productPackage (productPackage.id)}
 			<ListboxOption

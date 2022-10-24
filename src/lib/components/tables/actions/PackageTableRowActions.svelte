@@ -1,8 +1,13 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { Menu, MenuButton, MenuItems, MenuItem } from '@rgossiaux/svelte-headlessui';
 
 	export function classNames(...classes: readonly (string | undefined)[]): string | undefined {
 		return classes.filter(Boolean).join(' ');
+	}
+
+	export function handleAssignTagClick() {
+		goto(`/dashboard/packages/assign-tag`);
 	}
 </script>
 
@@ -55,6 +60,7 @@
 		<MenuItem let:active>
 			<button
 				type="button"
+				on:click={handleAssignTagClick()}
 				class={classNames(
 					active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
 					'group flex items-center w-full px-4 py-2 text-sm'
