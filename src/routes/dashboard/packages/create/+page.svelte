@@ -1,12 +1,14 @@
 <script lang='ts'>
 	import type { PageData } from './$types';
+	import { enhance } from '$app/forms';
 	import ParentPackageSelect from '$lib/components/forms/ParentPackageSelect.svelte';
 	import ItemSelect from '$lib/components/forms/ItemSelect.svelte';
 	import UomSelect from '$lib/components/forms/UomSelect.svelte';
 	import PackageTagSelect from '$lib/components/forms/PackageTagSelect.svelte';
 	import { packageUnitConverter } from '$lib/utils/conversions';
-	import { selectedParentPackage, selectedUom, selectedItem } from '$lib/stores';
+	import { selectedParentPackage, selectedUom, selectedItem, selectedNewPackageTag } from '$lib/stores';
 
+	export let form;
 	export let data: PageData;
 
 	export function classNames(
@@ -36,7 +38,7 @@
 			<div class='inline-block min-w-full py-2 align-middle md:px-6 lg:px-8'>
 				<div class='overflow-scroll shadow ring-1 ring-black ring-opacity-5 md:rounded-lg'>
 					<!--Form-->
-					<form class='p-4 sm:p-6 lg:p-8 space-y-8 divide-y divide-gray-200'>
+					<form method='post' use:enhance class='p-4 sm:p-6 lg:p-8 space-y-8 divide-y divide-gray-200'>
 						<div class='space-y-8 divide-y divide-gray-200 sm:space-y-5'>
 							<div class='space-y-6 sm:space-y-5'>
 								<div>
@@ -47,6 +49,7 @@
 								<div class='flex grid grid-cols-3 space-y-6 sm:space-y-5'>
 									<!--									Select Parent Package-->
 									<ParentPackageSelect options={data.packages} />
+									<input type='hidden' name='parent-package-object' value={JSON.stringify($selectedParentPackage)} />
 									<!--									End Select Parent Package-->
 									<!--Calculated displayed parent package quantity remaining-->
 									<div class='block grid-span-1'>
@@ -73,19 +76,21 @@
 									<p class='mt-1 max-w-2xl text-sm text-gray-500'>Enter details for what you want to create.</p>
 								</div>
 								<!--end header-->
-								<div class='flex grid grid-cols-5 grid-rows-2 space-y-6 sm:space-y-5'>
+								<div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+									<div className="sm:col-span-3">
 									<!--Section Content-->
-									<div class='grid-span-1 row-span-2'>
+									<div>
 										<ItemSelect options={data.items} />
+										<input type='hidden' name='item-object' value={JSON.stringify($selectedItem)} />
 									</div>
 
 									<!--Quantity input for new package-->
-									<div class='grid-span-2 row-span-2 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5'>
-										<div class='row-span-2'>
-											<label for='new-quantity' class='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'>New
+									<div class='sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5'>
+										<div>
+											<label for='new-package-quantity' class='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'>New
 												package quantity</label>
 											<div class='mt-1 sm:col-span-2 sm:mt-0'>
-												<input id='new-quantity' bind:value={childQuantity} name='new-quantity' type='number'
+												<input id='new-package-quantity' bind:value={childQuantity} name='new-package-quantity' type='number'
 															 step='0.01'
 															 class='block min-w-60 max-w-96 max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'>
 											</div>
@@ -93,12 +98,14 @@
 									</div>
 									<!--End quantity input for new package-->
 
-									<div class='grid-span-1 row-span-2'>
+									<div class='sm:col-span-2'>
 										<UomSelect options={data.uom} />
+										<input type='hidden' name='uom-object' value={JSON.stringify($selectedUom)} />
 									</div>
 
-									<div class='grid-span-1 row-span-2'>
+									<div class='sm:col-span-4'>
 										<PackageTagSelect options={data.packageTags} />
+										<input type='hidden' name='tagId' value={$selectedNewPackageTag.id} />
 									</div>
 								</div>
 								<!--Notes-->
@@ -111,8 +118,10 @@
 									</div>
 								</div>
 								<!--								End	Notes-->
+									<input type='hidden' name='new-parent-quantity' value={parentNewQuantity} />
 							</div>
 						</div>
+					</div>
 
 						<div class='pt-5'>
 							<div class='flex justify-end'>

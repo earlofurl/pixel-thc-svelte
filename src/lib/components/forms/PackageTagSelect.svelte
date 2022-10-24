@@ -6,6 +6,7 @@
 		ListboxOptions,
 		ListboxOption
 	} from '@rgossiaux/svelte-headlessui';
+	import { selectedNewPackageTag } from '$lib/stores';
 
 	export function classNames(
 		...classes: readonly (string | undefined)[]
@@ -14,17 +15,16 @@
 	}
 
 	export let options: PackageTag[] = [];
-	export let selectedPackageTag: PackageTag = options[0];
 </script>
 
 <!--Package Tag Selection Listbox -->
-<Listbox value={selectedPackageTag} on:change={(e) => (selectedPackageTag = e.detail)} as="div"
+<Listbox value={$selectedNewPackageTag} on:change={(e) => ($selectedNewPackageTag = e.detail)} as="div"
 				 class="relative items-center">
 	<ListboxButton
 		class='relative min-w-60 max-w-96 cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm'>
 		<div>
 			<p class='font-semibold'>
-				{selectedPackageTag.tagNumber}
+				{$selectedNewPackageTag.tagNumber}
 			</p>
 		</div>
 	</ListboxButton>

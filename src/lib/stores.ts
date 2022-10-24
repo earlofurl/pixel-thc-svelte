@@ -1,4 +1,4 @@
-import type { Uom } from '$lib/types/prisma-model-types';
+import type { Uom, PackageTag } from '$lib/types/prisma-model-types';
 import type { PackageWithNestedData, ItemWithNesting } from './types/custom';
 import { writable } from 'svelte/store';
 
@@ -6,3 +6,4 @@ import { writable } from 'svelte/store';
 export const selectedParentPackage = writable({} as PackageWithNestedData);
 export const selectedUom = writable({} as Uom);
 export const selectedItem = writable({} as ItemWithNesting);
+export const selectedNewPackageTag = writable({} as PackageTag);
