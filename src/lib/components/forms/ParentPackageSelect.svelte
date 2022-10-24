@@ -89,6 +89,19 @@
 				{:else}
 					<div class="flex">
 						<span class={classNames(selected ? 'font-semibold' : 'font-normal')}> No Tag </span>
+						<div class="w-full justify-between">
+							<span>{productPackage.item.itemType.productForm}</span> -
+							<span>{productPackage.item.itemType.productModifier}</span>
+						</div>
+						<div class="w-full justify-between">
+							<span class="font-semibold">{productPackage.item.strain.name}</span>
+							{#if productPackage.labTests.length > 0}
+								<span>{productPackage.labTests[0].labTest.batchCode}</span>
+								<span>{productPackage.labTests[0].labTest.thcTotalPercent}</span>
+							{:else}
+								<span>Untested</span>
+							{/if}
+						</div>
 					</div>
 				{/if}
 			</ListboxOption>

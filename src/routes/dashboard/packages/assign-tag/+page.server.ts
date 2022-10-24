@@ -18,8 +18,8 @@ export const load: PageServerLoad = async ({ fetch }) => {
 export const actions: Actions = {
 	default: async ({ request, fetch }) => {
 		const data = await request.formData();
-		const tagId = data.get('tagId') as string;
-		const packageId = data.get('packageId') as string;
+		const tagId = data.get('package-tag-id') as string;
+		const packageId = data.get('parent-package-id') as string;
 
 		const bodyObject = new URLSearchParams({
 			tagId,
