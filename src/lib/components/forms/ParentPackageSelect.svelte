@@ -64,8 +64,8 @@
 				let:active
 				class={({ active }) =>
 					active
-						? 'group flex items-center w-full px-4 py-2 text-sm bg-gray-100 text-gray-800'
-						: 'group flex items-center w-full px-4 py-2 text-sm text-gray-700'}
+						? 'group flex items-center min-w-60 max-w-96 px-4 py-2 text-sm bg-gray-100 text-gray-800'
+						: 'group flex items-center min-w-60 max-w-96 px-4 py-2 text-sm text-gray-700'}
 			>
 				{#if productPackage.tag}
 					<div>
@@ -87,7 +87,7 @@
 						</div>
 					</div>
 				{:else}
-					<div class="flex">
+					<div>
 						<span class={classNames(selected ? 'font-semibold' : 'font-normal')}> No Tag </span>
 						<div class="w-full justify-between">
 							<span>{productPackage.item.itemType.productForm}</span> -
