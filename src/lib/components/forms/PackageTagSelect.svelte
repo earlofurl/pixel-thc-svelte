@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PackageTag } from '$lib/types/prisma-model-types';
+	import { onMount } from 'svelte';
 	import {
 		Listbox,
 		ListboxButton,
@@ -13,6 +14,9 @@
 	}
 
 	export let options: PackageTag[] = [];
+	onMount(() => {
+		$selectedNewPackageTag = options[0];
+	});
 </script>
 
 <!--Package Tag Selection Listbox -->

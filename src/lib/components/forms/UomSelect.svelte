@@ -6,13 +6,18 @@
 		ListboxOptions,
 		ListboxOption
 	} from '@rgossiaux/svelte-headlessui';
-	import { selectedUom } from '$lib/stores';
+	import { selectedUom, selectedItem } from '$lib/stores';
 
 	export function classNames(...classes: readonly (string | undefined)[]): string | undefined {
 		return classes.filter(Boolean).join(' ');
 	}
 
 	export let options: Uom[] = [];
+
+	$: if ($selectedItem.itemType) {
+		$selectedUom =
+			options.find((option) => option.id === $selectedItem.itemType.uomDefaultId) ?? options[0];
+	}
 </script>
 
 <!--Uom Selection Listbox -->

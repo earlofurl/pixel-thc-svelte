@@ -26,7 +26,7 @@
 	// calculate the remaining quantity of the parent package
 	// based on the quantity taken from the child package
 	// and the units of measure of each
-	$: if ($selectedParentPackage.uom && $selectedUom.name) {
+	$: if ($selectedParentPackage && $selectedUom.name) {
 		parentNewQuantity =
 			$selectedParentPackage.quantity -
 			packageUnitConverter($selectedParentPackage, $selectedItem, $selectedUom, childQuantity);
@@ -68,7 +68,7 @@
 									<div class="sm:col-span-6">
 										<p class="block text-sm font-medium text-gray-700">Parent Quantity Remaining</p>
 										<div class="mt-1 text-lg">
-											<span>{parentNewQuantity}</span>
+											<span>{parentNewQuantity ? parentNewQuantity : '0'}</span>
 											{#if $selectedParentPackage.uom}
 												<span>{$selectedParentPackage.uom.abbreviation}</span>
 											{:else}
