@@ -10,7 +10,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 		// 	credentials: 'include',
 		// 	headers: { accept: 'application/json' }
 		// });
-		const res = await fetch(`http://localhost:3420/orders`, {
+		const res = await fetch(`http://localhost:3420/api/v1/orders`, {
 			credentials: 'include',
 			headers: { accept: 'application/json' }
 		});

@@ -4,7 +4,7 @@ import { error } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ fetch }) => {
 	try {
-		const packageTagResponse = await fetch(`http://localhost:3420/package-tags/false/50`, {
+		const packageTagResponse = await fetch(`http://localhost:3420/api/v1/package-tags/false/50`, {
 			credentials: 'include',
 			headers: { accept: 'application/json' }
 		});
