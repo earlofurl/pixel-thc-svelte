@@ -16,7 +16,8 @@ const config: UserConfig = {
 	plugins: [sveltekit()],
 	mode: runMode,
 	server: {
-		host: hostMode
+		host: hostMode,
+		port: 3069
 	}
 };
 

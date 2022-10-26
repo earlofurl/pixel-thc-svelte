@@ -1,3 +1,9 @@
+<script lang="ts">
+	import type { PageData } from './$types';
+
+	export let data: PageData;
+</script>
+
 <svelte:head>
 	<title>Dashboard</title>
 </svelte:head>
@@ -17,5 +23,8 @@
 		<div class="col-12">
 			<h2>My Tasks</h2>
 		</div>
+	</div>
+	<div>
+		{JSON.stringify(data)}
 	</div>
 </div>

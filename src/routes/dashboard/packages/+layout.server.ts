@@ -2,19 +2,35 @@ import type { LayoutServerLoad } from './$types';
 // import type { PackageWithNestedData } from '$lib/types/custom';
 import { env } from '$env/dynamic/private';
 
+const test_url = 'http://localhost:3420';
+
 import { error } from '@sveltejs/kit';
 
 export const load: LayoutServerLoad = async ({ fetch }) => {
 	// console.log(BASE_URL);
 	try {
-		const packageResponse = await fetch(`${env.BASE_URL}/packages`);
+		const packageResponse = await fetch(`http://localhost:3420/packages`, {
+			credentials: 'include',
+			headers: { accept: 'application/json' }
+		});
 		const packages = await packageResponse.json();
 
-		const itemResponse = await fetch(`${env.BASE_URL}/items`);
+		const itemResponse = await fetch(`http://localhost:3420/items`);
 		const items = await itemResponse.json();
 
-		const uomResponse = await fetch(`${env.BASE_URL}/uom`);
+		const uomResponse = await fetch(`http://localhost:3420/uom`);
 		const uom = await uomResponse.json();
+		// const packageResponse = await fetch(`${env.BASE_URL}/packages`, {
+		// 	credentials: 'include',
+		// 	headers: { accept: 'application/json' }
+		// });
+		// const packages = await packageResponse.json();
+
+		// const itemResponse = await fetch(`${env.BASE_URL}/items`);
+		// const items = await itemResponse.json();
+
+		// const uomResponse = await fetch(`${env.BASE_URL}/uom`);
+		// const uom = await uomResponse.json();
 
 		return {
 			packages,

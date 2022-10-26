@@ -6,7 +6,14 @@ import { error } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ fetch }) => {
 	try {
-		const res = await fetch(`${env.BASE_URL}/orders`);
+		// const res = await fetch(`${env.BASE_URL}/orders`, {
+		// 	credentials: 'include',
+		// 	headers: { accept: 'application/json' }
+		// });
+		const res = await fetch(`http://localhost:3420/orders`, {
+			credentials: 'include',
+			headers: { accept: 'application/json' }
+		});
 		const orders = await res.json();
 
 		return {

@@ -11,6 +11,6 @@ services:
     restart: always
     command: npm run dev
     ports:
-      - 5173:5173
+      - 3069:3069
     env_file:
       - .env

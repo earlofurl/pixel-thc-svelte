@@ -77,5 +77,4 @@ COPY --chown=node:node --from=build /app/package.json ./
 # copy built SvelteKit app to /app
 COPY --from=0 /app/build ./
 
-EXPOSE 3000
 CMD ["node", "./index.js"]
