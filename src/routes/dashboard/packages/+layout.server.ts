@@ -5,7 +5,7 @@ import { BASE_URL } from '$env/static/private';
 import { error } from '@sveltejs/kit';
 
 export const load: LayoutServerLoad = async ({ fetch }) => {
-	console.log(BASE_URL);
+	// console.log(BASE_URL);
 	try {
 		const packageResponse = await fetch(`${BASE_URL}/packages`);
 		const packages = await packageResponse.json();
