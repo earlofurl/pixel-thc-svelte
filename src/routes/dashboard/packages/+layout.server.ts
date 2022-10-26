@@ -1,19 +1,19 @@
 import type { LayoutServerLoad } from './$types';
 // import type { PackageWithNestedData } from '$lib/types/custom';
-import { BASE_URL } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 import { error } from '@sveltejs/kit';
 
 export const load: LayoutServerLoad = async ({ fetch }) => {
 	// console.log(BASE_URL);
 	try {
-		const packageResponse = await fetch(`${BASE_URL}/packages`);
+		const packageResponse = await fetch(`${env.BASE_URL}/packages`);
 		const packages = await packageResponse.json();
 
-		const itemResponse = await fetch(`${BASE_URL}/items`);
+		const itemResponse = await fetch(`${env.BASE_URL}/items`);
 		const items = await itemResponse.json();
 
-		const uomResponse = await fetch(`${BASE_URL}/uom`);
+		const uomResponse = await fetch(`${env.BASE_URL}/uom`);
 		const uom = await uomResponse.json();
 
 		return {
