@@ -1,10 +1,11 @@
 import type { PageServerLoad, Actions } from './$types';
+import { BASE_URL } from '$env/static/private';
 
 import { error } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ fetch }) => {
 	try {
-		const packageTagResponse = await fetch('http://localhost:3000/package-tags/false/50');
+		const packageTagResponse = await fetch(`${BASE_URL}/package-tags/false/50`);
 		const packageTags = await packageTagResponse.json();
 
 		return {
