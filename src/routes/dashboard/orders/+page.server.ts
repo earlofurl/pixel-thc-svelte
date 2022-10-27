@@ -6,11 +6,11 @@ import { error } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ fetch }) => {
 	try {
-		// const res = await fetch(`${env.BASE_URL}/orders`, {
-		// 	credentials: 'include',
-		// 	headers: { accept: 'application/json' }
-		// });
-		const res = await fetch(`0.0.0.0:3420/api/v1/orders`);
+		const res = await fetch(`${env.BASE_URL}/orders`, {
+			credentials: 'include',
+			headers: { accept: 'application/json' }
+		});
+		// const res = await fetch(`0.0.0.0:3420/api/v1/orders`);
 		const orders = await res.json();
 
 		return {
