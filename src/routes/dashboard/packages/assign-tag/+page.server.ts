@@ -1,15 +1,23 @@
 import type { PageServerLoad, Actions } from './$types';
-import { env } from '$env/dynamic/private';
+// import { env } from '$env/dynamic/private';
 
 import { error } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ fetch }) => {
+	const getHeaders = new Headers({
+		'Content-Type': 'application/json'
+	});
+
+	const getPackagesRequest = new Request(`http://127.0.0.1:3420/api/v1/package-tags/false/50`, {
+		method: 'GET',
+		mode: 'no-cors',
+		referrerPolicy: 'strict-origin-when-cross-origin',
+		headers: getHeaders
+	});
+
 	try {
 		// const packageTagResponse = await fetch(`0.0.0.0:3420/api/v1/package-tags/false/50`);
-		const packageTagResponse = await fetch(`${env.BASE_URL}/package-tags/false/50`, {
-			credentials: 'include',
-			headers: { accept: 'application/json' }
-		});
+		const packageTagResponse = await fetch(getPackagesRequest);
 		const packageTags = await packageTagResponse.json();
 
 		return {
@@ -31,7 +39,7 @@ export const actions: Actions = {
 			packageId
 		}).toString();
 
-		const taggedPackage = await fetch('http://localhost:3000/packages/assign-tag', {
+		const taggedPackage = await fetch('http://127.0.0.1:3420/api/v1/packages/assign-tag', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'

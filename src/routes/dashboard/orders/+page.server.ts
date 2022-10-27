@@ -1,16 +1,24 @@
 import type { PageServerLoad } from './$types';
 // import type { PackageWithNestedData } from '$lib/types/custom';
-import { env } from '$env/dynamic/private';
+// import { env } from '$env/dynamic/private';
 
 import { error } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ fetch }) => {
+	const getHeaders = new Headers({
+		'Content-Type': 'application/json'
+	});
+
+	const getOrdersRequest = new Request(`http://127.0.0.1:3420/api/v1/orders`, {
+		method: 'GET',
+		mode: 'no-cors',
+		referrerPolicy: 'strict-origin-when-cross-origin',
+		headers: getHeaders
+	});
+
 	try {
-		const res = await fetch(`${env.BASE_URL}/orders`, {
-			credentials: 'include',
-			headers: { accept: 'application/json' }
-		});
-		// const res = await fetch(`0.0.0.0:3420/api/v1/orders`);
+		const res = await fetch(getOrdersRequest);
+		console.log(res);
 		const orders = await res.json();
 
 		return {

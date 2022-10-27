@@ -12,6 +12,10 @@ if (process.env.NODE_ENV === 'production') {
 	hostMode = true;
 }
 
+// const config: UserConfig = {
+// 	plugins: [sveltekit()]
+// };
+
 const config: UserConfig = {
 	plugins: [sveltekit()],
 	mode: runMode,
