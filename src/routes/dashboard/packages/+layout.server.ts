@@ -9,23 +9,26 @@ export const load: LayoutServerLoad = async ({ fetch }) => {
 		'Content-Type': 'application/json'
 	});
 
-	const getPackagesRequest = new Request(`${env.API_BASE_URL}/api/v1/package-tags/false/50`, {
+	const getPackagesRequest = new Request(`${env.API_BASE_URL}/api/v1/packages`, {
 		method: 'GET',
-		mode: 'no-cors',
+		mode: 'cors',
+		credentials: 'same-origin',
 		referrerPolicy: 'strict-origin-when-cross-origin',
 		headers: getHeaders
 	});
 
 	const getItemsRequest = new Request(`${env.API_BASE_URL}/api/v1/items`, {
 		method: 'GET',
-		mode: 'no-cors',
+		mode: 'cors',
+		credentials: 'same-origin',
 		referrerPolicy: 'strict-origin-when-cross-origin',
 		headers: getHeaders
 	});
 
 	const getUomRequest = new Request(`${env.API_BASE_URL}/api/v1/uom`, {
 		method: 'GET',
-		mode: 'no-cors',
+		mode: 'cors',
+		credentials: 'same-origin',
 		referrerPolicy: 'strict-origin-when-cross-origin',
 		headers: getHeaders
 	});
@@ -49,6 +52,6 @@ export const load: LayoutServerLoad = async ({ fetch }) => {
 			uom
 		};
 	} catch (err) {
-		return error(500, 'Error loading packages');
+		return error(500, 'Manual SK errormsg: Error loading packages');
 	}
 };

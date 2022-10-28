@@ -25,6 +25,6 @@
 		</div>
 	</div>
 	<div>
-		{JSON.stringify(data)}
+		{data.hello}
 	</div>
 </div>

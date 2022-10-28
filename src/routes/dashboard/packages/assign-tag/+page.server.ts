@@ -10,7 +10,8 @@ export const load: PageServerLoad = async ({ fetch }) => {
 
 	const getPackagesRequest = new Request(`${env.API_BASE_URL}/api/v1/package-tags/false/50`, {
 		method: 'GET',
-		mode: 'no-cors',
+		mode: 'cors',
+		credentials: 'same-origin',
 		referrerPolicy: 'strict-origin-when-cross-origin',
 		headers: getHeaders
 	});
@@ -24,7 +25,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 			packageTags
 		};
 	} catch (err) {
-		return error(500, 'Error loading package tags');
+		return error(500, 'Custom SK errormsg: Error loading package tags');
 	}
 };
 

@@ -41,14 +41,14 @@
 				},
 				{
 					id: 'productForm',
-					accessorFn: (row: any) => `${row.item.itemType?.productForm}`,
+					accessorFn: (row: any) => `${row.item?.itemType?.productForm}`,
 					cell: (info) => info.getValue(),
 					header: () => 'Form',
 					enableSorting: true
 				},
 				{
 					id: 'productModifier',
-					accessorFn: (row: any) => `${row.item.itemType?.productModifier}`,
+					accessorFn: (row: any) => `${row.item?.itemType?.productModifier}`,
 					cell: (info) => info.getValue(),
 					header: () => 'Mod',
 					enableSorting: true
