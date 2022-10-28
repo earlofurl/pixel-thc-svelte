@@ -14,3 +14,7 @@ services:
       - 3069:3069
     env_file:
       - .env
+networks:
+  default:
+    name: pixel-thc-nestjs_default
+    external: true

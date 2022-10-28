@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 // import type { PackageWithNestedData } from '$lib/types/custom';
-// import { env } from '$env/dynamic/private';
+import { env } from '$env/dynamic/private';
 
 import { error } from '@sveltejs/kit';
 
@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 		'Content-Type': 'application/json'
 	});
 
-	const getOrdersRequest = new Request(`http://127.0.0.1:3420/api/v1/orders`, {
+	const getOrdersRequest = new Request(`${env.API_BASE_URL}/api/v1/orders`, {
 		method: 'GET',
 		mode: 'no-cors',
 		referrerPolicy: 'strict-origin-when-cross-origin',
