@@ -19,6 +19,7 @@
 		"@sveltejs/kit": "next",
 		"@tailwindcss/forms": "^0.5.3",
 		"@tanstack/svelte-table": "^8.5.15",
+		"@types/bcrypt": "^5.0.0",
 		"@typescript-eslint/eslint-plugin": "^5.27.0",
 		"@typescript-eslint/parser": "^5.27.0",
 		"autoprefixer": "^10.4.12",
@@ -38,6 +39,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"bcrypt": "^5.1.0",
 		"fast-json-stringify": "^5.4.0"
 	}
 }
