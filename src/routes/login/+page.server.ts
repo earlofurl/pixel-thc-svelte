@@ -8,14 +8,19 @@ import { env } from '$env/dynamic/private';
 
 export const actions: Actions = {
 	default: async ({ request, cookies, fetch }) => {
-		const form = await request.formData();
-		const email = form.get('email') as string;
-		const password = form.get('password') as string;
+		const data = await request.formData();
+		const email = data.get('email') as string;
+		const password = data.get('password') as string;
+
+		// console.log('email: ', email);
+		// console.log('password: ', password);
 
 		const bodyObject = new URLSearchParams({
 			email,
 			password
 		}).toString();
+
+		// console.log('bodyObject: ', bodyObject);
 
 		if (!email || !password) return customResponse(400, false, 'Email and Password are required');
 
@@ -31,7 +36,8 @@ export const actions: Actions = {
 		});
 		// const passwordMatch = user && (await bcrypt.compare(password, user.password));
 
-		if (!user) return customResponse(400, false, 'You entered the wrong credentials.');
+		// return { success: true, user };
+		// if (!user) return customResponse(400, false, 'You entered the wrong credentials.');
 		const userData = await user.json();
 
 		cookies.set('session', userData.id, {
@@ -42,7 +48,7 @@ export const actions: Actions = {
 			maxAge: 60 * 60 * 24 * 30
 		});
 
-		// return customResponse(200, true, 'User loggedIn successfully');
+		// // return customResponse(200, true, 'User loggedIn successfully');
 
 		throw redirect(307, '/dashboard');
 	}
