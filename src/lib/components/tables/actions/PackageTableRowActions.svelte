@@ -11,6 +11,10 @@
 		$selectedParentPackage = invPackage;
 	}
 
+	export function handleCreateFromClick(invPackage: PackageWithNestedData) {
+		$selectedParentPackage = invPackage;
+	}
+
 	export let row: any;
 </script>
 
@@ -28,15 +32,16 @@
 		class="absolute z-10 mt-1 max-h-60 min-w-20 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
 	>
 		<MenuItem let:active>
-			<button
-				type="button"
+			<a
+				on:click={() => handleCreateFromClick(row.original)}
+				href="packages/create"
 				class={classNames(
 					active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
 					'group flex items-center w-full px-4 py-2 text-sm'
 				)}
 			>
 				Create From
-			</button>
+			</a>
 		</MenuItem>
 		<MenuItem let:active>
 			<button

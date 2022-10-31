@@ -54,6 +54,7 @@ export const actions: Actions = {
 
 		const newPackage = await fetch(`${env.API_BASE_URL}/api/v1/packages`, {
 			method: 'POST',
+			cache: 'no-cache',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
