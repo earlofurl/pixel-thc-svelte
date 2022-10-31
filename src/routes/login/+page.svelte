@@ -11,6 +11,6 @@
 		<label for="password">password</label><br />
 		<input type="password" id="password" name="password" /><br />
 		<!-- <input type="submit" value="Continue" class="button" /> -->
-		<button type="submit">Continue</button>
+		<button type="submit">Log In</button>
 	</form>
 </div>
