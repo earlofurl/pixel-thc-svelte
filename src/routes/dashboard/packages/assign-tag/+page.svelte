@@ -13,11 +13,8 @@
 	export let data: PageData;
 </script>
 
+<!-- <h1>{$selectedParentPackage.id}</h1> -->
 <div>
-	<h3 class="text-lg font-medium leading-6 text-gray-900">Assign Tag</h3>
-	<p class="mt-1 max-w-2xl text-sm text-gray-500">
-		Select a package and a tag to assign to the package.
-	</p>
 	<form method="post" class="p-4 sm:p-6 lg:p-8 space-y-8 divide-y divide-gray-200">
 		<div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
 			<div class="space-y-6 sm:space-y-5">

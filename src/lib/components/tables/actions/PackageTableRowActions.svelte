@@ -1,14 +1,17 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { Menu, MenuButton, MenuItems, MenuItem } from '@rgossiaux/svelte-headlessui';
+	import { selectedParentPackage } from '$lib/stores';
+	import type { PackageWithNestedData } from '$lib/types/custom';
 
 	export function classNames(...classes: readonly (string | undefined)[]): string | undefined {
 		return classes.filter(Boolean).join(' ');
 	}
 
-	export function handleAssignTagClick() {
-		goto(`/dashboard/packages/assign-tag`);
+	export function handleAssignTagClick(invPackage: PackageWithNestedData) {
+		$selectedParentPackage = invPackage;
 	}
+
+	export let row: any;
 </script>
 
 <Menu as="div" class="relative items-center">
@@ -58,16 +61,17 @@
 			</button>
 		</MenuItem>
 		<MenuItem let:active>
-			<button
-				type="button"
-				on:click={handleAssignTagClick()}
+			<a
+				on:click={() => handleAssignTagClick(row.original)}
+				href="packages/assign-tag"
 				class={classNames(
 					active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
 					'group flex items-center w-full px-4 py-2 text-sm'
 				)}
 			>
 				Assign Tag
-			</button>
+			</a>
 		</MenuItem>
+		<!-- <p>{JSON.stringify(row)}</p> -->
 	</MenuItems>
 </Menu>

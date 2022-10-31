@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ColumnDef } from '@tanstack/svelte-table';
+	import { flexRender, type ColumnDef } from '@tanstack/svelte-table';
 	import type { PackageWithNestedData } from '$lib/types/custom';
 	import type { PageData } from './$types';
 
@@ -15,13 +15,7 @@
 				{
 					id: 'actions',
 					header: 'Actions',
-					cell: (props) =>
-						({
-							component: PackageTableRowActions,
-							props: {
-								row: props.row
-							}
-						}.component)
+					cell: (props) => flexRender(PackageTableRowActions, { row: props.row })
 				},
 				{
 					id: 'id',
