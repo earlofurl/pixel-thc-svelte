@@ -27,4 +27,7 @@
 	<div>
 		{data.hello}
 	</div>
+	<div>
+		Hello {JSON.stringify(data.user)}
+	</div>
 </div>

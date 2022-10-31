@@ -7,10 +7,14 @@
 
 <h1 class="font-bold text-2xl text-gray-900">Orders</h1>
 
-{#each data.orders as order}
-	<li>
-		<a href="orders/{order.id}" class="text-blue-500 hover:text-blue-600">
-			{order.id}
-		</a>
-	</li>
-{/each}
+{#if data.orders && data.orders.length > 0}
+	{#each data.orders as order}
+		<li>
+			<a href="orders/{order.id}" class="text-blue-500 hover:text-blue-600">
+				{order.id}
+			</a>
+		</li>
+	{/each}
+{:else}
+	<p>No orders found.</p>
+{/if}

@@ -4,7 +4,7 @@ import { env } from '$env/dynamic/private';
 
 import { error } from '@sveltejs/kit';
 
-export const load: LayoutServerLoad = async ({ fetch }) => {
+export const load: LayoutServerLoad = async ({ fetch, cookies }) => {
 	const getHeaders = new Headers({
 		'Content-Type': 'application/json'
 	});
@@ -12,7 +12,7 @@ export const load: LayoutServerLoad = async ({ fetch }) => {
 	const getPackagesRequest = new Request(`${env.API_BASE_URL}/api/v1/packages`, {
 		method: 'GET',
 		mode: 'cors',
-		credentials: 'same-origin',
+		credentials: 'include',
 		referrerPolicy: 'strict-origin-when-cross-origin',
 		headers: getHeaders
 	});
@@ -20,7 +20,7 @@ export const load: LayoutServerLoad = async ({ fetch }) => {
 	const getItemsRequest = new Request(`${env.API_BASE_URL}/api/v1/items`, {
 		method: 'GET',
 		mode: 'cors',
-		credentials: 'same-origin',
+		credentials: 'include',
 		referrerPolicy: 'strict-origin-when-cross-origin',
 		headers: getHeaders
 	});
@@ -28,7 +28,7 @@ export const load: LayoutServerLoad = async ({ fetch }) => {
 	const getUomRequest = new Request(`${env.API_BASE_URL}/api/v1/uom`, {
 		method: 'GET',
 		mode: 'cors',
-		credentials: 'same-origin',
+		credentials: 'include',
 		referrerPolicy: 'strict-origin-when-cross-origin',
 		headers: getHeaders
 	});

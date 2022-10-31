@@ -20,3 +20,12 @@ export type ItemWithNesting = Item & {
 	itemType: ItemType;
 	strain: Strain;
 };
+
+export enum Role {
+	'admin' = 'ADMIN',
+	'customer' = 'CUSTOMER',
+	'guest' = 'GUEST',
+	'standard' = 'STANDARD',
+	'superadmin' = 'SUPERADMIN',
+	'manager' = 'MANAGER'
+}

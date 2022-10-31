@@ -1,4 +1,5 @@
 import { invalid } from '@sveltejs/kit';
+import type { Role } from '$lib/types/custom';
 
 export const customResponse = (status: number, success: boolean, message: string, data = {}) => {
 	if (success) {
@@ -31,15 +32,6 @@ export function hex(buffer: ArrayBuffer) {
 export async function hashPassword(password: string) {
 	const encoder = new TextEncoder();
 	return hex(await crypto.subtle.digest('SHA-256', encoder.encode(password)));
-}
-
-export enum Role {
-	'admin' = 'ADMIN',
-	'customer' = 'CUSTOMER',
-	'guest' = 'GUEST',
-	'standard' = 'STANDARD',
-	'superadmin' = 'SUPERADMIN',
-	'manager' = 'MANAGER'
 }
 
 export interface User {
