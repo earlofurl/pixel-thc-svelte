@@ -2,6 +2,7 @@ import type { Actions } from './$types';
 import { redirect } from '@sveltejs/kit';
 import { customResponse } from '$lib/utils/misc';
 import { env } from '$env/dynamic/private';
+import { ok, err } from 'neverthrow';
 
 export const actions: Actions = {
 	default: async ({ request, fetch, locals }) => {
