@@ -13,7 +13,7 @@
 		<input id="first-name" type="text" name="first-name" /><br />
 		<label for="last-name">Last Name</label><br />
 		<input id="last-name" type="text" name="last-name" /><br />
-		<label for="phone">Last Name</label><br />
+		<label for="phone">Phone</label><br />
 		<input id="phone" type="tel" name="phone" /><br />
 		<label for="password">Password</label><br />
 		<input type="password" id="password" name="password" /><br />

@@ -30,7 +30,8 @@ export const actions: Actions = {
 			confirmationPassword: passwordConfirm,
 			firstName,
 			lastName,
-			phone
+			phone,
+			role: 'STANDARD'
 		}).toString();
 
 		try {

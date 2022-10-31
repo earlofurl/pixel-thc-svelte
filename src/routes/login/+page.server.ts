@@ -1,5 +1,5 @@
 import { redirect } from '@sveltejs/kit';
-import type { PageServerLoad, Actions } from './$types';
+import type { Actions } from './$types';
 import { customResponse } from '$lib/utils/misc';
 // import { userRepository } from '$lib/Redis/dbRepository';
 import * as bcrypt from 'bcrypt';
